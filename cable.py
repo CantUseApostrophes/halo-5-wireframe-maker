@@ -10,6 +10,8 @@ Created on Feb 8, 2017
 import math
 
 class Cable:
+    types = [4, 8, 16, 20, 32, 36, 40, 48, 64, 96]
+    
     def __init__(self, length, yaw, roll):
         self.length = length
         self.yaw = yaw
@@ -17,6 +19,7 @@ class Cable:
         self.start = []
         self.end = []
         self.position = []
+        self.index = Cable.types.index(self.length)
         
     def setStart(self, start):
         self.start = start

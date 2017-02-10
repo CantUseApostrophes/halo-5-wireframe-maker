@@ -14,6 +14,9 @@ class Cable:
     
     def __init__(self, length, yaw, roll):
         self.length = length
+        # The yaw and roll values here are not to be trusted.
+        # The edge object containing the cable object has the
+        # correct rotation values.
         self.yaw = yaw
         self.roll = roll
         self.start = []

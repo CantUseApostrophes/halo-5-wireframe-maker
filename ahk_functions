@@ -1,0 +1,196 @@
+click(x, y, slp:=75) {
+    MouseMove %x%, %y%, 0
+    Sleep %slp%
+    Click %x%, %y%, down
+    Sleep 75
+    Click %x%, %y%, up
+}
+
+checkClick(x1, y1, x2, y2, color, type, slp:=150) {
+    count := 0
+    Loop {
+        click(x1, y1)
+        Sleep %slp%
+        PixelGetColor px, %x2%, %y2%, RGB
+        if (px = color) {
+            Break
+        }
+        count := count + 1
+        if (count > 5) {
+            count := 0
+            if (type = 2) {
+                clickPlus()
+            }
+            else if (type = 3) {
+                clickPlus()
+                clickProps()
+            }
+            else if (type = 4) {
+                clickPlus()
+                clickProps()
+                clickConstruction()
+            }
+            else if (type = 5) {
+                clickPlus()
+                clickProps()
+                clickConstruction()
+                clickCables()
+            }
+            else if (type = 7) {
+                click(960, 550, 100)
+                Sleep 300
+            }
+            else if (type = 8) {
+                click(960, 550, 100)
+                Sleep 300
+                clickProperties()
+            }
+            else if (type = 9) {
+                click(960, 550, 100)
+                Sleep 300
+                clickProperties()
+            }
+            else if (type = 10) {
+                click(960, 550, 100)
+                Sleep 300
+                clickProperties()
+                clickPosition()
+            }
+            else if (type = 11) {
+                click(960, 550, 100)
+                Sleep 300
+                clickProperties()
+                clickRotation()
+            }
+            else if (type = 12) {
+                click(960, 550, 100)
+                Sleep 300
+                clickProperties()
+                clickRotation()
+                Break
+            }
+        }
+    }
+}
+
+checkClick2(x1, y1, x2, y2, color, type, slp:=150) {
+    count := 0
+    Loop {
+        click(x1, y1)
+        Sleep %slp%
+        PixelGetColor px, %x2%, %y2%, RGB
+        if (px != color) {
+            Break
+        }
+        count := count + 1
+        if (count > 5) {
+            count := 0
+            if (type = 6) {
+                clickPlus()
+                clickProps()
+                clickConstruction()
+                clickCables()
+                clickUncapped()
+            }
+        }
+    }
+}
+
+clickPlus() {
+    checkClick(1750, 40, 1600, 120, "0x636363", 1)
+}
+
+clickProps() {
+    checkClick(1560, 285, 1571, 118, "0x999999", 2)
+}
+
+clickConstruction() {
+    checkClick(1560, 565, 1666, 149, "0xF4F4F4", 3)
+}
+
+clickCables() {
+    checkClick(1560, 320, 1591, 186, "0xEFEFEF", 4)
+}
+
+clickUncapped() {
+    checkClick(1560, 270, 1623, 187, "0xCACACA", 5)
+}
+
+clickSpawnCable(index) {
+    checkClick2(1560, 210+index*28, 1623, 187, "0xCACACA", 6)
+}
+
+checkPlusMenu() {
+    PixelGetColor color, 1623, 187, RGB
+    if (color != "0xCACACA") {
+        goToUncappedCables()
+    }
+}
+
+goToUncappedCables() {
+    clickProps()
+    clickConstruction()
+    clickCables()
+    clickUncapped()
+}
+
+clickProperties() {
+    checkClick(1850, 40, 1600, 80, "0x303030", 7)
+}
+
+clickPosition() {
+    checkClick(1560, 315, 1530, 152, "0xA7A7A7", 8)
+}
+
+clickRotation() {
+    checkClick(1560, 345, 1568, 152, "0xEAEAEA", 9)
+}
+
+clickField1(type) {
+    checkClick(1813, 177, 1751, 187, "0x3399FF", 10 + type)
+}
+
+clickField2(type) {
+    checkClick(1813, 205, 1751, 215, "0x3399FF", 10 + type)
+}
+
+clickField3(type) {
+    checkClick(1813, 233, 1751, 243, "0x3399FF", 10 + type)
+}
+
+clickArrowToRotation() {
+    checkClick(1880, 150, 1568, 152, "0xEAEAEA", 12)
+}
+
+clickSave() {
+    click(42, 44)
+}
+
+input(txt) {
+    Send, %txt%
+    Sleep 25
+    Send, {Enter}
+    Sleep 25
+}
+
+FormatSeconds(NumberOfSeconds) {
+    time = 19990101
+    time += %NumberOfSeconds%, seconds
+    FormatTime, mmss, %time%, mm:ss
+    SetFormat, float, 2.0
+    return NumberOfSeconds//3600 ":" mmss
+}
+
+Loop {
+    Sleep 1000
+    IfWinActive Halo 5: Forge
+    {
+        Sleep 1000
+        Break
+    }
+}
+SendMode Event
+BlockInput MouseMove
+pause_var1 := 0
+pause_var2 := 0
+StartTime := A_TickCount

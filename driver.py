@@ -12,8 +12,9 @@ def main():
     model = Model("sphere")
     model.setShortestEdge(4)
     print str(model)
-    print "\n"+str(model.edges[0])
-    model.plotWireframe()
+    #print "\n"+str(model.edges[0])
+    model.generateAhkScript()
+    #model.plotWireframe()
     
 if __name__ == "__main__":
     main()

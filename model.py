@@ -8,8 +8,10 @@ Created on Feb 8, 2017
 
 from edge import Edge
 import math
-import matplotlib.pyplot as pyplot
-from mpl_toolkits.mplot3d import Axes3D  # @UnusedImport
+try:
+    import matplotlib.pyplot as pyplot
+    from mpl_toolkits.mplot3d import Axes3D  # @UnusedImport
+except: pass
 
 class Model:
     root_path = "models/"
@@ -129,12 +131,14 @@ class Model:
         return numOmitted
     
     def plotWireframe(self):
-        fig = pyplot.figure()
-        ax = fig.add_subplot(111, projection="3d")
-        ax.axis("equal")
-        for edge in self.edges:
-            ax.plot([edge.start[0], edge.end[0]], [edge.start[1], edge.end[1]], [edge.start[2], edge.end[2]], ["black", "red"][edge.omitted])
-        pyplot.show()
+        try:
+            fig = pyplot.figure()
+            ax = fig.add_subplot(111, projection="3d")
+            ax.axis("equal")
+            for edge in self.edges:
+                ax.plot([edge.start[0], edge.end[0]], [edge.start[1], edge.end[1]], [edge.start[2], edge.end[2]], ["black", "red"][edge.omitted])
+            pyplot.show()
+        except: pass
         
     def generateAhkScript(self):
         with open ("ahk_functions", "r") as funcs:

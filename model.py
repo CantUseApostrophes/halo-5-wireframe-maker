@@ -7,6 +7,7 @@ Created on Feb 8, 2017
 '''
 
 from edge import Edge
+import math
 import matplotlib.pyplot as pyplot
 from mpl_toolkits.mplot3d import Axes3D  # @UnusedImport
 
@@ -129,11 +130,49 @@ class Model:
     
     def plotWireframe(self):
         fig = pyplot.figure()
-        ax = fig.add_subplot(111, projection='3d')
+        ax = fig.add_subplot(111, projection="3d")
         ax.axis("equal")
         for edge in self.edges:
             ax.plot([edge.start[0], edge.end[0]], [edge.start[1], edge.end[1]], [edge.start[2], edge.end[2]], ["black", "red"][edge.omitted])
         pyplot.show()
+        
+    def generateAhkScript(self):
+        with open ("ahk_functions", "r") as funcs:
+            output = funcs.read()
+        for edge in self.edges:
+            for cable in edge.cables:
+                output += "clickPlus()\n"
+                output += "checkPlusMenu()\n"
+                output += "clickSpawnCable("+str(cable.index)+")\n"
+                output += "clickProperties()\n"
+                output += "clickPosition()\n"
+                output += "clickField1(0)\n"
+                output += "input("+str(round(cable.position[0], 1))+")\n"
+                output += "clickField2(0)\n"
+                output += "input("+str(round(cable.position[1], 1))+")\n"
+                output += "clickField3(0)\n"
+                output += "input("+str(round(cable.position[2], 1))+")\n"
+                output += "clickArrowToRotation()\n"
+                output += "clickField1(1)\n"
+                output += "input("+str(round(math.degrees(cable.yaw), 2))+")\n"
+                output += "clickField3(1)\n"
+                output += "input("+str(round(math.degrees(cable.roll), 2))+")\n"
+                output += "if (pause_var1 = 1) {\n\tBlockInput MouseMoveOff\n\tPause On\n}\n"
+                output += "Sleep 500\n"
+        output += "BlockInput MouseMoveOff\n"
+        output += "time_elapsed := FormatSeconds((A_TickCount-StartTime)/1000)\n"
+        output += "MsgBox Build time:`n%time_elapsed%\n"
+        output += "ExitApp\n"
+        # Sets F1 to terminate script
+        output += "F1::\nBlockInput MouseMoveOff\nExitApp\nreturn\n"
+        # Sets F2 to pause script when finished with current object
+        output += "F2::\nPause Off\nBlockInput MouseMove\nif (pause_var1 = 0)\n\tpause_var1 := 1\nelse\n\tpause_var1 := 0\nreturn\n"
+        # Sets F3 to pause script immediately
+        output += "F3::\nPause Off\nBlockInput MouseMove\nif (pause_var2 = 0) {\n\tpause_var2 := 1\n\tBlockInput MouseMoveOff\n\tPause On\n}\nelse\n\tpause_var2 := 0\nreturn\n"
+        f = open("ahk_scripts/build_"+self.filename+"_wireframe.ahk","w")
+        f.write(output)
+        f.close()
+        print "\nAHK script build_"+self.filename+"_wireframe.ahk generated."
     
     def __str__(self):
         numTris, numPolys = self.getNumTrisAndPolys()

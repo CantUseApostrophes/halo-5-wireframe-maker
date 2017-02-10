@@ -97,7 +97,7 @@ checkClick2(x1, y1, x2, y2, color, type, slp:=150) {
 }
 
 clickPlus() {
-    checkClick(1750, 40, 1800, 85, "0x2F2F2F", 1)
+    checkClick(1750, 40, 1780, 80, "0x999999", 1)
 }
 
 clickProps() {

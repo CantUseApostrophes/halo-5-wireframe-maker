@@ -6,8 +6,7 @@ click(x, y, slp:=75) {
     Click %x%, %y%, up
 }
 
-checkClick(x1, y1, x2, y2, color, type, slp:=150) {
-    count := 0
+checkClick(x1, y1, x2, y2, color, slp:=150) {
     Loop {
         click(x1, y1)
         Sleep %slp%
@@ -15,66 +14,10 @@ checkClick(x1, y1, x2, y2, color, type, slp:=150) {
         if (px = color) {
             Break
         }
-        count := count + 1
-        if (count > 5) {
-            count := 0
-            if (type = 2) {
-                clickPlus()
-            }
-            else if (type = 3) {
-                clickPlus()
-                clickProps()
-            }
-            else if (type = 4) {
-                clickPlus()
-                clickProps()
-                clickConstruction()
-            }
-            else if (type = 5) {
-                clickPlus()
-                clickProps()
-                clickConstruction()
-                clickCables()
-            }
-            else if (type = 7) {
-                click(960, 550, 100)
-                Sleep 300
-            }
-            else if (type = 8) {
-                click(960, 550, 100)
-                Sleep 300
-                clickProperties()
-            }
-            else if (type = 9) {
-                click(960, 550, 100)
-                Sleep 300
-                clickProperties()
-            }
-            else if (type = 10) {
-                click(960, 550, 100)
-                Sleep 300
-                clickProperties()
-                clickPosition()
-            }
-            else if (type = 11) {
-                click(960, 550, 100)
-                Sleep 300
-                clickProperties()
-                clickRotation()
-            }
-            else if (type = 12) {
-                click(960, 550, 100)
-                Sleep 300
-                clickProperties()
-                clickRotation()
-                Break
-            }
-        }
     }
 }
 
-checkClick2(x1, y1, x2, y2, color, type, slp:=150) {
-    count := 0
+checkClick2(x1, y1, x2, y2, color, slp:=150) {
     Loop {
         click(x1, y1)
         Sleep %slp%
@@ -82,42 +25,31 @@ checkClick2(x1, y1, x2, y2, color, type, slp:=150) {
         if (px != color) {
             Break
         }
-        count := count + 1
-        if (count > 5) {
-            count := 0
-            if (type = 6) {
-                clickPlus()
-                clickProps()
-                clickConstruction()
-                clickCables()
-                clickUncapped()
-            }
-        }
     }
 }
 
 clickPlus() {
-    checkClick(1750, 40, 1780, 80, "0x999999", 1)
+    checkClick(1750, 40, 1780, 80, "0x999999")
 }
 
 clickProps() {
-    checkClick(1560, 285, 1571, 118, "0x999999", 2)
+    checkClick(1560, 285, 1571, 118, "0x999999")
 }
 
 clickConstruction() {
-    checkClick(1560, 565, 1666, 149, "0xF4F4F4", 3)
+    checkClick(1560, 565, 1666, 149, "0xF4F4F4")
 }
 
 clickCables() {
-    checkClick(1560, 320, 1591, 186, "0xEFEFEF", 4)
+    checkClick(1560, 320, 1591, 186, "0xEFEFEF")
 }
 
 clickUncapped() {
-    checkClick(1560, 270, 1623, 187, "0xCACACA", 5)
+    checkClick(1560, 270, 1623, 187, "0xCACACA")
 }
 
 clickSpawnCable(index) {
-    checkClick2(1560, 210+index*28, 1623, 187, "0xCACACA", 6)
+    checkClick2(1560, 210+index*28, 1623, 187, "0xCACACA")
 }
 
 checkPlusMenu() {
@@ -135,31 +67,31 @@ goToUncappedCables() {
 }
 
 clickProperties() {
-    checkClick(1850, 40, 1600, 80, "0x303030", 7)
+    checkClick(1850, 40, 1600, 80, "0x303030")
 }
 
 clickPosition() {
-    checkClick(1560, 315, 1530, 152, "0xA7A7A7", 8)
+    checkClick(1560, 315, 1530, 152, "0xA7A7A7")
 }
 
 clickRotation() {
-    checkClick(1560, 345, 1568, 152, "0xEAEAEA", 9)
+    checkClick(1560, 345, 1568, 152, "0xEAEAEA")
 }
 
-clickField1(type) {
-    checkClick(1813, 177, 1751, 187, "0x3399FF", 10 + type)
+clickField1() {
+    checkClick(1813, 177, 1751, 187, "0x3399FF")
 }
 
-clickField2(type) {
-    checkClick(1813, 205, 1751, 215, "0x3399FF", 10 + type)
+clickField2() {
+    checkClick(1813, 205, 1751, 215, "0x3399FF")
 }
 
-clickField3(type) {
-    checkClick(1813, 233, 1751, 243, "0x3399FF", 10 + type)
+clickField3() {
+    checkClick(1813, 233, 1751, 243, "0x3399FF")
 }
 
 clickArrowToRotation() {
-    checkClick(1880, 150, 1568, 152, "0xEAEAEA", 12)
+    checkClick(1880, 150, 1568, 152, "0xEAEAEA")
 }
 
 clickSave() {

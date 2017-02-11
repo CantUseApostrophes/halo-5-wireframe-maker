@@ -1,4 +1,4 @@
-click(x, y, slp:=75) {
+click(x, y, slp:=100) {
     MouseMove %x%, %y%, 0
     Sleep %slp%
     Click %x%, %y%, down
@@ -49,6 +49,7 @@ clickUncapped() {
 }
 
 clickSpawnCable(index) {
+    Sleep 100
     checkClick2(1560, 210+index*28, 1623, 187, "0xCACACA")
 }
 

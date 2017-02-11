@@ -6,3 +6,5 @@
 *.pyc
 
 *.ahk
+
+models/too_detailed

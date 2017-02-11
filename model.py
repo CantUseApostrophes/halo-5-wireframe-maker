@@ -162,7 +162,7 @@ class Model:
                 output += "clickField3()\n"
                 output += "input("+str(round(math.degrees(edge.roll), 2))+")\n"
                 output += "if (pause_var1 = 1) {\n\tBlockInput MouseMoveOff\n\tPause On\n}\n"
-                output += "Sleep 500\n"
+        output += "clickSave()\n"
         output += "BlockInput MouseMoveOff\n"
         output += "time_elapsed := FormatSeconds((A_TickCount-StartTime)/1000)\n"
         output += "MsgBox Build time:`n%time_elapsed%\n"
